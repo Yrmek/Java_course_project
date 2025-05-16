@@ -1,4 +1,7 @@
+package com.onlinestore.services;
+
 import com.onlinestore.entities.OrderView;
+import com.onlinestore.utils.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -7,6 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderService {
+    private static OrderService instance;
+    private OrderService() {}
+    public static synchronized OrderService getInstance() {
+        if (instance == null) {
+            instance = new OrderService();
+        }
+        return instance;
+    }
 
     public List<OrderView> getAllOrders() throws SQLException {
         List<OrderView> orders = new ArrayList<>();

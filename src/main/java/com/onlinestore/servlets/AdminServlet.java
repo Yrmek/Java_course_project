@@ -6,6 +6,8 @@ import java.util.List;
 import com.onlinestore.dao.UserDAO;
 import com.onlinestore.dao.UserDAOImpl;
 import com.onlinestore.entities.User;
+import com.onlinestore.services.UserService;
+import com.onlinestore.entities.UserView;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -29,7 +31,7 @@ public class AdminServlet extends HttpServlet {
             return;
         }
 
-        List<User> users = userDAO.findAll();
+        List<UserView> users = UserService.getInstance().getAllUserViews();
         request.setAttribute("users", users);
         request.getRequestDispatcher("/WEB-INF/views/admin/dashboard.jsp").forward(request, response);
     }

@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="java.util.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <fmt:setLocale value="${sessionScope.lang != null ? sessionScope.lang.language : 'ru'}" />
@@ -22,30 +22,41 @@
         <th><fmt:message key="order.status"/></th>
         <th><fmt:message key="actions"/></th>
     </tr>
-    <%
-        List<Map<String, Object>> orders = (List<Map<String, Object>>) request.getAttribute("orders");
-        for (Map<String, Object> order : orders) {
-    %>
-    <tr>
-        <td><%= order.get("id") %></td>
-        <td><%= order.get("email") %></td>
-        <td><%= order.get("createdAt") %></td>
-        <td><%= order.get("totalPrice") %> руб.</td>
-        <td><%= (Boolean) order.get("paid") ? "Оплачен" : "Не оплачен" %></td>
-        <td>
-            <form method="post" action="update-order">
-                <input type="hidden" name="orderId" value="<%= order.get("id") %>">
-                <input type="hidden" name="userId" value="<%= order.get("userId") %>">
-                <input type="hidden" name="paid" value="<%= !(Boolean) order.get("paid") %>">
-                <button type="submit">
-                    <%= (Boolean) order.get("paid") ? "Пометить как не оплачен" : "Пометить как оплачен" %>
-                </button>
-            </form>
-        </td>
-    </tr>
-    <%
-        }
-    %>
+    <c:forEach var="order" items="${orders}">
+        <tr>
+            <td>${order.id}</td>
+            <td>${order.email}</td>
+            <td>${order.createdAt}</td>
+            <td>${order.totalPrice} руб.</td>
+            <td>
+                <c:choose>
+                    <c:when test="${order.paid}">
+                        Оплачен
+                    </c:when>
+                    <c:otherwise>
+                        Не оплачен
+                    </c:otherwise>
+                </c:choose>
+            </td>
+            <td>
+                <form method="post" action="update-order">
+                    <input type="hidden" name="orderId" value="${order.id}">
+                    <input type="hidden" name="userId" value="${order.userId}">
+                    <input type="hidden" name="paid" value="${!order.paid}">
+                    <button type="submit">
+                        <c:choose>
+                            <c:when test="${order.paid}">
+                                Пометить как не оплачен
+                            </c:when>
+                            <c:otherwise>
+                                Пометить как оплачен
+                            </c:otherwise>
+                        </c:choose>
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </c:forEach>
 </table>
 
 <p><a href="${pageContext.request.contextPath}/admin">

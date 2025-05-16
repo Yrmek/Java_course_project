@@ -3,6 +3,8 @@ package com.onlinestore.servlets;
 import com.onlinestore.dao.ProductDAO;
 import com.onlinestore.dao.ProductDAOImpl;
 import com.onlinestore.entities.Product;
+import com.onlinestore.services.ProductService;
+import com.onlinestore.entities.ProductView;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -30,12 +32,10 @@ public class ProductDetailsServlet extends HttpServlet {
 
         try {
             int id = Integer.parseInt(idParam);
-            Optional<Product> optionalProduct = productDAO.findById(id);
-
-            if (optionalProduct.isPresent()) {
-                request.setAttribute("product", optionalProduct.get());
+            ProductView product = ProductService.getInstance().getProductViewById(id);
+            if (product != null) {
+                request.setAttribute("product", product);
             }
-
         } catch (NumberFormatException e) {
             // Некорректный ID — игнорируем
         }

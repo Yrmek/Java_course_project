@@ -1,6 +1,8 @@
 package com.onlinestore.servlets;
 
 import com.onlinestore.entities.Product;
+import com.onlinestore.entities.ProductView;
+import com.onlinestore.services.ProductService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,12 +17,16 @@ public class CartServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Map<Product, Integer> cart = (Map<Product, Integer>) session.getAttribute("cart");
-
-        if (cart == null) {
-            cart = new HashMap<>();
+        Map<ProductView, Integer> cartView = new HashMap<>();
+        if (cart != null) {
+            for (Map.Entry<Product, Integer> entry : cart.entrySet()) {
+                ProductView pv = ProductService.getInstance().getProductViewById(entry.getKey().getId());
+                if (pv != null) {
+                    cartView.put(pv, entry.getValue());
+                }
+            }
         }
-
-        request.setAttribute("cart", cart);
+        request.setAttribute("cart", cartView);
         request.getRequestDispatcher("/WEB-INF/views/cart.jsp").forward(request, response);
     }
 }
