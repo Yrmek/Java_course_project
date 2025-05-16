@@ -1,0 +1,38 @@
+package com.onlinestore.services;
+
+import com.onlinestore.dao.UserDAO;
+import com.onlinestore.dao.UserDAOImpl;
+import com.onlinestore.entities.User;
+import com.onlinestore.entities.UserView;
+
+import java.util.List;
+
+public class UserService {
+    private static UserService instance;
+    private final UserDAO userDAO = new UserDAOImpl();
+
+    private UserService() {}
+
+    public static synchronized UserService getInstance() {
+        if (instance == null) {
+            instance = new UserService();
+        }
+        return instance;
+    }
+
+    public User authenticate(String email, String password) {
+        User user = userDAO.findByEmail(email);
+        if (user != null && !user.isBlocked() && user.getPassword().equals(password)) {
+            return user;
+        }
+        return null;
+    }
+
+    public List<UserView> getAllUserViews() {
+        List<UserView> views = new java.util.ArrayList<>();
+        for (User user : userDAO.findAll()) {
+            views.add(new UserView(user.getId(), user.getEmail(), user.getRole(), user.isBlocked()));
+        }
+        return views;
+    }
+}
