@@ -27,6 +27,10 @@ public class UserService {
         }
         return null;
     }
+    
+    public User getUserById(int id) {
+        return userDAO.findById(id);
+    }
 
     public List<UserView> getAllUserViews() {
         List<UserView> views = new java.util.ArrayList<>();
@@ -34,5 +38,9 @@ public class UserService {
             views.add(new UserView(user.getId(), user.getEmail(), user.getRole(), user.isBlocked()));
         }
         return views;
+    }
+
+    public void updateUser(User user) {
+        userDAO.update(user);
     }
 }

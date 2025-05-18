@@ -38,6 +38,7 @@ public class AuthFilter implements Filter {
             httpResponse.sendRedirect(contextPath + "/login.jsp");
             return;
         }
+    
 
         // ✅ Ограничиваем доступ к админке
         if (uri.startsWith(contextPath + "/admin") && !"ROLE_ADMIN".equals(user.getRole())) {
