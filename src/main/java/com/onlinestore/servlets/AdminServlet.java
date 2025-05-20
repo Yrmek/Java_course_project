@@ -3,11 +3,9 @@ package com.onlinestore.servlets;
 import java.io.IOException;
 import java.util.List;
 
-import com.onlinestore.dao.UserDAO;
-import com.onlinestore.dao.UserDAOImpl;
+import com.onlinestore.ViewModels.UserView;
 import com.onlinestore.entities.User;
 import com.onlinestore.services.UserService;
-import com.onlinestore.entities.UserView;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -18,8 +16,6 @@ import jakarta.servlet.annotation.WebServlet;
 
 @WebServlet("/admin")
 public class AdminServlet extends HttpServlet {
-    private final UserDAO userDAO = new UserDAOImpl();
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

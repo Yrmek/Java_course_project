@@ -1,7 +1,6 @@
 package com.onlinestore.servlets;
 
-import com.onlinestore.dao.ProductDAO;
-import com.onlinestore.dao.ProductDAOImpl;
+import com.onlinestore.services.ProductService;
 import com.onlinestore.entities.Product;
 
 import jakarta.servlet.ServletException;
@@ -12,7 +11,7 @@ import java.util.*;
 
 @WebServlet("/addToCart")
 public class AddToCartServlet extends HttpServlet {
-    private final ProductDAO productDAO = new ProductDAOImpl();
+    private final ProductService productService = ProductService.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -20,7 +19,7 @@ public class AddToCartServlet extends HttpServlet {
         int productId = Integer.parseInt(request.getParameter("productId"));
         int quantity = Integer.parseInt(request.getParameter("quantity"));
 
-        Product product = productDAO.findById(productId).orElse(null);
+        Product product = productService.getProductById(productId);
         if (product == null) {
             response.sendRedirect("products");
             return;

@@ -1,9 +1,10 @@
 package com.onlinestore.services;
 
+import com.onlinestore.ViewModels.ProductView;
 import com.onlinestore.dao.ProductDAO;
 import com.onlinestore.dao.ProductDAOImpl;
 import com.onlinestore.entities.Product;
-import com.onlinestore.entities.ProductView;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -31,5 +32,13 @@ public class ProductService {
         return productDAO.findById(id)
             .map(p -> new ProductView(p.getId(), p.getName(), p.getDescription(), p.getPrice(), p.getStock()))
             .orElse(null);
+    }
+
+    public void addProduct(Product product) {
+        productDAO.create(product);
+    }
+
+    public Product getProductById(int id) {
+        return productDAO.findById(id).orElse(null);
     }
 } 

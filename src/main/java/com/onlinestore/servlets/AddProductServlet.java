@@ -1,7 +1,6 @@
 package com.onlinestore.servlets;
 
-import com.onlinestore.dao.ProductDAO;
-import com.onlinestore.dao.ProductDAOImpl;
+import com.onlinestore.services.ProductService;
 import com.onlinestore.entities.Product;
 
 import jakarta.servlet.ServletException;
@@ -12,7 +11,7 @@ import java.io.IOException;
 
 @WebServlet("/admin/add-product")
 public class AddProductServlet extends HttpServlet {
-    private final ProductDAO productDAO = new ProductDAOImpl();
+    private final ProductService productService = ProductService.getInstance();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -34,7 +33,7 @@ public class AddProductServlet extends HttpServlet {
         product.setPrice(price);
         product.setStock(stock);
 
-        productDAO.create(product);
+        productService.addProduct(product);
 
         response.sendRedirect(request.getContextPath() + "/admin");
     }

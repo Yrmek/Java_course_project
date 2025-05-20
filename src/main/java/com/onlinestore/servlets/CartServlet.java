@@ -1,7 +1,7 @@
 package com.onlinestore.servlets;
 
+import com.onlinestore.ViewModels.ProductView;
 import com.onlinestore.entities.Product;
-import com.onlinestore.entities.ProductView;
 import com.onlinestore.services.ProductService;
 
 import jakarta.servlet.ServletException;

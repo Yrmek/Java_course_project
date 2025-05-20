@@ -1,9 +1,9 @@
 package com.onlinestore.servlets;
 
 import com.onlinestore.utils.DatabaseConnection;
+import com.onlinestore.ViewModels.OrderView;
 import com.onlinestore.entities.User;
 import com.onlinestore.services.OrderService;
-import com.onlinestore.entities.OrderView;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

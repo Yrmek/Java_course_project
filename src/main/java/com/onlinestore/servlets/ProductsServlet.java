@@ -2,8 +2,8 @@ package com.onlinestore.servlets;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
-import com.onlinestore.dao.ProductDAO;
-import com.onlinestore.dao.ProductDAOImpl;
+
+import com.onlinestore.ViewModels.ProductView;
 import com.onlinestore.entities.Product;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,12 +14,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import com.onlinestore.services.ProductService;
-import com.onlinestore.entities.ProductView;
 
 @WebServlet("/products")
 public class ProductsServlet extends HttpServlet {
-    private ProductDAO productDAO = new ProductDAOImpl();
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {

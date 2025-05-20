@@ -1,4 +1,4 @@
-package com.onlinestore.entities;
+package com.onlinestore.ViewModels;
 
 public class ProductView {
     private int id;

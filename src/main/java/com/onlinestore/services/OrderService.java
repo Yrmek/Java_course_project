@@ -1,7 +1,8 @@
 package com.onlinestore.services;
 
-import com.onlinestore.entities.OrderView;
+import com.onlinestore.ViewModels.OrderView;
 import com.onlinestore.utils.DatabaseConnection;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;

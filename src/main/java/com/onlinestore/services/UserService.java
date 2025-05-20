@@ -1,9 +1,9 @@
 package com.onlinestore.services;
 
+import com.onlinestore.ViewModels.UserView;
 import com.onlinestore.dao.UserDAO;
 import com.onlinestore.dao.UserDAOImpl;
 import com.onlinestore.entities.User;
-import com.onlinestore.entities.UserView;
 
 import java.util.List;
 
@@ -42,5 +42,13 @@ public class UserService {
 
     public void updateUser(User user) {
         userDAO.update(user);
+    }
+
+    public boolean existsByEmail(String email) {
+        return userDAO.existsByEmail(email);
+    }
+
+    public void createUser(User user) {
+        userDAO.create(user);
     }
 }
